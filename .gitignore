@@ -1,0 +1,6 @@
+*~
+./main
+doc/*
+bin/*
+src/notes.txt
+.DS_Store
