@@ -17,7 +17,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11")
 #                                                                             #
 ###############################################################################
 
-set(BOOST_INCLUDE_DIRS
+set(BOOST_INCLUDE_DIR
     "/usr/local/boost_installed/include"
     CACHE
     PATH
@@ -32,8 +32,8 @@ set(BOOST_INCLUDE_DIRS
 
 project(CallCentre CXX)
 
-set (CALLCENTRE_VERSION_MAJOR 1)
-set (CALLCENTRE_VERSION_MINOR 0)
+set(CALLCENTRE_VERSION_MAJOR 1)
+set(CALLCENTRE_VERSION_MINOR 0)
 
 ################################################################################
 #                                                                              #
@@ -53,6 +53,7 @@ set(CALLCENTRE_HEADER_DIR
     ${PROJECT_SOURCE_DIR}/src/include/main
 )
 
+include_directories (${BOOST_INCLUDE_DIR})
 include_directories (${CALLCENTRE_HEADER_DIR})
 
 # Implementation files #
@@ -89,7 +90,7 @@ add_executable(${PROJECT_NAME}
 find_package(Doxygen)
 
 if(DOXYGEN_FOUND)
-  configure_file(
+   configure_file(
       ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in
       ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY
   )

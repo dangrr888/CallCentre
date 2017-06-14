@@ -4,7 +4,7 @@
 #include <string>
 #include <cstddef>
 
-#include <boost/serialization/strong_typedef.hpp>
+#include "boost/serialization/strong_typedef.hpp"
 
 namespace callcentre
 {

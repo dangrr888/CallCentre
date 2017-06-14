@@ -1,5 +1,8 @@
 #include "Employee.h"
 
+namespace callcentre
+{
+
 Employee::Employee( const std::string& name
                   , const Id& id
                   , const Experience& experience_
@@ -28,3 +31,5 @@ void Employee::experience(const Experience& experience_)
 {
   m_experience = experience_;
 }
+
+} // ! namespace callcentre
