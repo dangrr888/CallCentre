@@ -3,6 +3,8 @@
 
 #include <boost/serialization/strong_typedef.hpp>
 
+#includec<string>
+
 namespace callcentre
 {
 
@@ -12,19 +14,29 @@ namespace callcentre
     BOOST_STRONG_TYPEDEF(std::size_t, Severity);
     BOOST_STRONG_TYPEDEF(std::size_t, Id);
 
-    Call( const Id& id_
-        , const std::string& caller_name_
-        , const std::string& description_
-        , const Severity& severity_
+    /* structors */
+    Call( const Id& id
+        , const std::string& caller_name
+        , const std::string& description
+        , const Severity& severity
         );
+    Call(const Call&) = default;
+    Call(Call&&) = default;
+    Call& operator=(const Call&) = default;
+    Call& operator=(Call&&) = default;
 
+    ~Call() = default;
+
+    /* publis etters */
     const Id& id() const;
     const std::string& caller_name() const;
     const std::string& description() const;
     const Severity& severity() const;
-    void severity(const Severity& severity_);
+    void severity(const Severity& severity);
 
   private:
+
+    /* data members */
     Id m_id;
     const std::string m_caller_name;
     const std::string m_description;

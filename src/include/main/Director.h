@@ -3,33 +3,37 @@
 
 #include <string>
 
-#include "Call.h"
 #include "Employee.h"
-#include "CallHandler.h"
+#include "Respondent.h"
 
 namespace callcentre
 {
 
-  class Director : public callcentre::Respondent
+  class Call;
+
+  class Director : public Respondent
   {
   public:
 
-    Director( const std::string& name_
-           , callcentre::Employee::Id id_
-           , callcentre::Employee::Experience experience_
+    /* structors */
+    Director( const std::string& name
+           , Employee::Id id
+           , Employee::Experience experience
            );
 
-    Director( const std::string& name_
-           , callcentre::Employee::Id id_
-           , callcentre::Employee::Experience experience_
-           , callcentre::CallHandler& handler_
+    Director( const std::string& name
+           , Employee::Id id
+           , Employee::Experience experience
+           , CallHandler& handler
            );
 
-    virtual void process_call(std::unique_ptr<callcentre::Call>&& call_); // Could use state pattern here.
-    virtual State state() const;
-    virtual Type type() const;
+    Director(const Director&) = default;
+    Director(Director&&) = default;
+    Director& operator=(const Director&) = default;
+    Director& operator=(Director&&) = default;
+    virtual ~Director() = default;
 
-  private:
+    virtual void process_call(Call&& call);
 
   }; // ! class Director
 

@@ -3,33 +3,40 @@
 
 #include <string>
 
-#include "Call.h"
 #include "Employee.h"
-#include "CallHandler.h"
+#include "Respondent.h"
 
 namespace callcentre
 {
 
-  class Manager : public callcentre::Respondent
+  class Call;
+
+  class Manager : public Respondent
   {
   public:
 
-    Manager( const std::string& name_
-           , callcentre::Employee::Id id_
-           , callcentre::Employee::Experience experience_
+    /* structors */
+    Manager( const std::string& name
+           , Employee::Id id
+           , Employee::Experience experience
            );
 
-    Manager( const std::string& name_
-           , callcentre::Employee::Id id_
-           , callcentre::Employee::Experience experience_
-           , callcentre::CallHandler& handler_
+    Manager( const std::string& name
+           , Employee::Id id
+           , Employee::Experience experience
+           , CallHandler& handler
            );
 
-    virtual void process_call(std::unique_ptr<callcentre::Call>&& call_); // Could use state pattern here.
-    virtual State state() const;
-    virtual Type type() const;
+    Manager(const Manager&) = default;
+    Manager(Manager&&) = default;
+    Manager& operator=(const Manager&) = default;
+    Manager& operator=(Manager&&) = default;
+    virtual ~Manager() = default;
+
+    virtual void process_call(Call&& call);
 
   private:
+    void escalate_call();
 
   }; // ! class Manager
 

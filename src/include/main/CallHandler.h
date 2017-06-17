@@ -2,43 +2,45 @@
 #define GUARD_SRC_MAIN_INCLUDE_CALLHANDLER_H_
 
 #include <deque>
-#include <queue>
+#include <list>
 #include <memory>
 
 #include "Employee.h"
-#include "Respondent.h"
 #include "Call.h"
 
 namespace callcentre
 {
 
-class CallHandler : public Employee
-{
-public:
-  CallHandler() = default;
-  ~CallHandler() = default;
+  class CallCentre;
+  class Respondent;
 
-  template< RespondentIter respondent_iter
-          , CallIter call_iter
-          >
-  CallHandler( RespondentIter respondent_beg
-             , RespondentIter respondent_end
-             , CallIter call_beg
-             , CallIter call_end
-             );
+  class CallHandler : public Employee
+  {
+  public:
 
-  void add_call(std::unique_ptr<callcentre::Call>&& call_);
-  void process_call();
-  void acknowledge(callcentre::Respondent& respondent_);
+    /* structors */
+    CallHandler(CallCentre& callcentre);
+    CallHandler(const CallHandler&) = default;
+    CallHandler(const CallHandler&&) = default;
+    CallHandler& operator=(const CallHandler&) = default;
+    CallHandler& operator=(CallHandler&&) = default;
+    ~CallHandler() = default;
 
-private:
-  callcentre::Respondent& find_respondent(const callcentre::Call& call_) const; // use lambda here
-  void assign_call(std::unique_ptr<callcentre::Call>&& call_); // try to avoid 2 moves if possible
+    /* etters */
+    void receive_call(Call&& call);
+    void process_call();
 
-  std::queue<std::unique_ptr<callcentre::Call>> m_calls;
-  std::deque<callcentre::Respondent&> m_respondents;
+  private:
 
-}; // ! class CallHandler
+    /* private etters */
+    Respondent& find_respondent(const Call& call, Employee::Type) const;
+    void assign_call(Call&& call, Respondent& respondent);
+
+    /* data members */
+    std::list<Call> m_calls; // convert to queue of unique pointers if possible
+    CallCentre& m_callcentre;
+
+  }; // ! class CallHandler
 
 } // ! namespace callcentre
 
