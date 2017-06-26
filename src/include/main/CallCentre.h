@@ -9,8 +9,8 @@
 namespace callcentre
 {
 
-/// @brief A class representing a CallCentre.
-  class CallCentre
+  /// @brief A class representing a CallCentre.
+  class final CallCentre
   {
 
   public:
