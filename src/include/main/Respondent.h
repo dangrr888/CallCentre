@@ -10,53 +10,118 @@
 namespace callcentre
 {
 
-class CallHandler;
-class Call;
+  // Forward declarations
+  class CallHandler;
+  class Call;
 
-class Respondent : public Employee
-{
-public:
+  /// @brief A class representing an Employee
+  ///  capable of responding to calls recieved
+  /// by the CallCentre that owns the Employee.
+  class Respondent : public Employee
+  {
+  public:
 
-  /* structors */
-  Respondent( const std::string& name
-            , Employee::Id id
-            , Employee::Experience experience
-            );
+    // public structors.
 
-  Respondent( const std::string& name
-            , Employee::Id id
-            , Employee::Experience experience
-            , CallHandler& handler
-            );
+    /// @brief 3-parameter constructor.
+    /// @param name The name of this Respondent.
+    /// @param id The identification of this Respondent.
+    /// @param experience The Experience of this Respondent.
+    Respondent( const std::string& name
+              , Employee::Id id
+              , Employee::Experience experience
+              );
 
-  Respondent(const Respondent&) = default;
-  Respondent(Respondent&&) = default;
-  Respondent& operator=(const Respondent&) = default;
-  Respondent& operator=(Respondent&&) = default;
-  virtual ~Respondent() = default;
+    /// @brief 4-parameter constructor.
+    /// @param name The name of this Respondent.
+    /// @param id The identification of this Respondent.
+    /// @param experience The Experience of this Respondent.
+    /// @param handler The CallHandler associated with this Respondent.
+    Respondent( const std::string& name
+              , Employee::Id id
+              , Employee::Experience experience
+              , CallHandler* handler
+              );
 
-  virtual void process_call(Call&& call); // Could use state pattern here.
+    /// @brief Copy constructor.
+    /// @note Default implementation.
+    Respondent(const Respondent&) = default;
 
-protected:
-  void close_call();
-  void reject_call();
-  void increment_experience();
-  void notify_handler();
+    /// @brief Move constructor.
+    /// @note Default implementation.
+    Respondent(Respondent&&) = default;
 
-  void sign_off();
-  std::size_t quota_metric() const; // Could use a strategy pattern here for the metric, or template this
+    /// @brief Copy constructor.
+    /// @note Default implementation.
+    Respondent& operator=(const Respondent&) = default;
 
-  //void take_break(); // no point since will be an indefinite break unless use multiple threads and hence equiv to sign_off
-  //std::size_t m_breaks;
-  std::deque<Call> m_closed_calls;
+    /// @brief Move assignment operator.
+    /// @note Default implementation.
+    Respondent& operator=(Respondent&&) = default;
 
-  CallHandler* m_callhandler;
-  Call m_call;
+    /// @brief Destructor.
+    /// @note Default implementation.
+    virtual ~Respondent() = default;
 
-private:
+    /// @brief Process a Call.
+    /// @param call The call to be processed.
+    /// @todo - use state pattern based on Respondent Experience and
+    ///   Call Severity.
+    virtual void process_call(Call&& call);
+
+  protected:
+
+    // protected etters.
+
+    /// @brief Clase the call after successful processing.
+    void close_call();
+
+    /// @brief Reject the current Call as it cannot be processed
+    ///  by this Respondent.
+    void reject_call();
+
+    /// @brief Increment the Experience of this Respondent,
+    ///  based upon the closed calls made by this Respondent.
+    void increment_experience();
+
+    /// @brief Notify the CallHandler registered with this
+    ///  Respondent that a Call has been rejected and needs
+    ///  to be handled by a more experienced Respondent.
+    void notify_handler();
+
+    /// @brief Register a CallHandler with this Respondent.
+    /// @param handlerThe CallHandler to register.
+    void set_handler(CallHandler* handler);
+
+    /// @brief Return the result of the current metric
+    ///  using the closed calls of this Respondent.
+    /// @todo - Could use a strategy pattern here for the metric, or template this
+    double quota_metric() const;
+
+    //void sign_off();
+    //void take_break(); // no point since will be an indefinite break unless use multiple threads and hence equiv to sign_off
+
+    // protected data members.
+
+    //std::size_t m_breaks;
+
+    /// @brief The closed calls of this Respondent.
+    std::deque<Call> m_closed_calls;
+
+    /// @brief The CallHandler registered with this Respondent.
+    CallHandler* m_callhandler;
+
+    /// @brief The current Call being processed by this Respondent.
+    Call m_call;
+
+  private:
+
+    // private etters.
+
+    /// @brief Escalate the call to a more experienced Respondent.
     void escalate_call();
 
-}; // ! class Respondent
+  }; // ! class Respondent
 
 } // ! namespace callcentre
 

@@ -28,8 +28,8 @@ namespace callcentre
     /// @param end The last Employee.
     template<typename EmployeeIter>
     CallCentre( EmployeeIter beg
-                , EmployeeIter end
-      );
+              , EmployeeIter end
+              );
 
     /// @brief Copy constructor.
     /// @note Deleted.
