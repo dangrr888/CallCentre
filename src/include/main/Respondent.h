@@ -23,15 +23,6 @@ namespace callcentre
 
     // public structors.
 
-    /// @brief 3-parameter constructor.
-    /// @param name The name of this Respondent.
-    /// @param id The identification of this Respondent.
-    /// @param experience The Experience of this Respondent.
-    Respondent( const std::string& name
-              , Employee::Id id
-              , Employee::Experience experience
-              );
-
     /// @brief 4-parameter constructor.
     /// @param name The name of this Respondent.
     /// @param id The identification of this Respondent.
@@ -69,6 +60,10 @@ namespace callcentre
     ///   Call Severity.
     virtual void process_call(Call&& call);
 
+    /// @brief Register a CallHandler with this Respondent.
+    /// @param handlerThe CallHandler to register.
+    void set_handler(CallHandler* handler);
+
   protected:
 
     // protected etters.
@@ -88,10 +83,6 @@ namespace callcentre
     ///  Respondent that a Call has been rejected and needs
     ///  to be handled by a more experienced Respondent.
     void notify_handler();
-
-    /// @brief Register a CallHandler with this Respondent.
-    /// @param handlerThe CallHandler to register.
-    void set_handler(CallHandler* handler);
 
     /// @brief Return the result of the current metric
     ///  using the closed calls of this Respondent.
