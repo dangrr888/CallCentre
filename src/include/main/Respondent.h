@@ -31,7 +31,7 @@ namespace callcentre
     Respondent( const std::string& name
               , Employee::Id id
               , Employee::Experience experience
-              , CallHandler* handler
+              , CallHandler* handler = nullptr
               );
 
     /// @brief Copy constructor.
