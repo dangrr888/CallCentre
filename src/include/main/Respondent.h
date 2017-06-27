@@ -56,10 +56,6 @@ namespace callcentre
 
     // public methods.
 
-    /// @brief Return the state of this Employee.
-    /// @retval The state of this Employee.
-    virtual Employee::State state() const;
-
     /// @brief Retrieve the type of this Employee.
     /// @retval the type of this Employee.
     virtual Employee::Type type() const;

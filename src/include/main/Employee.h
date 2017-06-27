@@ -17,8 +17,13 @@ namespace callcentre
 
     // public aliases.
 
-    /// @brief Identification of an Employee.
-    BOOST_STRONG_TYPEDEF(std::size_t, Id);
+    /// @brief Identification of an Employee. The owner of the
+    ///  Employee is responsible for ensuring that this Id
+    ///  is unique if that is so desired.
+    /// @todo - consider using a GUID generator in CallCentre
+    ///  to generate these Id's and typedef to that type.
+    ///  Could use boost::uuid.
+    BOOST_STRONG_TYPEDEF(std::string, Id);
 
     /// @brief The Experience of an Employee. This will
     /// be used, via an implementation-specific metric,
@@ -27,6 +32,8 @@ namespace callcentre
     BOOST_STRONG_TYPEDEF(std::size_t, Experience);
 
     // Public enum classes.
+    // see https://stackoverflow.com/questions/216748/pros-and-cons-of-using-nested-c-classes-and-enumerations
+    // for comments on pros and cons of nested enumerations.
 
     /// @brief A class representing the state of an
     ///   Employee.
@@ -44,9 +51,9 @@ namespace callcentre
     {
       RESPONDENT,
       MANGER,
-      DIRECTOR
+      DIRECTOR,
+      CALLHANDLER
     };
-
 
     // public structors.
 
@@ -103,7 +110,7 @@ namespace callcentre
 
     /// @brief Return the state of this Employee.
     /// @retval The state of this Employee.
-    virtual Employee::State state() const = 0;
+    Employee::State state() const;
 
     /// @brief Set the state of this Employee.
     /// @param state The State of this Employee.
