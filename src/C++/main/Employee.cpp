@@ -13,29 +13,34 @@ namespace callcentre
   , m_state(State::FREE)
   {}
 
-  std::string Employee::name() const
+  const std::string& Employee::name() const
   {
     return m_name;
   }
 
-  Employee::Id Employee::id() const
+  const Employee::Id& Employee::id() const
   {
     return m_id;
   }
 
-  Employee::Experience Employee::experience() const
+  const Employee::Experience& Employee::experience() const
   {
     return m_experience;
   }
 
-  void Employee::experience(const Experience& experience)
+  void Employee::experience(const Experience& experience_)
   {
-    m_experience = experience;
+    m_experience = experience_;
   }
 
-  Employee::State Employee::state() const
+  const Employee::State& Employee::state() const
   {
     return m_state;
+  }
+
+  void Employee::state(const Employee::State& state_)
+  {
+    m_state = state_;
   }
 
 } // ! namespace callcentre

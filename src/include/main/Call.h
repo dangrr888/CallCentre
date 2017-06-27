@@ -81,15 +81,15 @@ namespace callcentre
     const Severity& severity() const;
 
     /// @brief Set the severity of this Call.
-    /// @param severity The severity to set.
-    void severity(const Severity& severity);
+    /// @param severity_ The severity to set.
+    void severity(const Severity& severity_);
 
   private:
 
     // Private data members.
 
     /// @brief The id of this Call.
-    Id m_id;
+    const Id m_id;
 
     /// @brief The caller name.
     const std::string m_caller_name;

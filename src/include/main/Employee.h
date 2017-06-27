@@ -94,31 +94,31 @@ namespace callcentre
 
     /// @brief Retrieve the name of this Employee.
     /// @retval The name of this Employee.
-    std::string name() const;
+    const std::string& name() const;
 
     /// @brief Retrieve the id of this Employee.
     /// @retval The id of this Employee.
-    Id id() const;
+    const Id& id() const;
 
     /// @brief Retrieve the experience of this Employee.
     /// @retval The experience of this Employee.
-    Experience experience() const;
+    const Experience& experience() const;
 
     /// @brief Set the experience of this Employee.
-    /// @param experience The Experience to be set.
-    void experience(const Experience& experience);
+    /// @param experience_ The Experience to be set.
+    void experience(const Experience& experience_);
 
     /// @brief Return the state of this Employee.
     /// @retval The state of this Employee.
-    Employee::State state() const;
+    const State& state() const;
 
     /// @brief Set the state of this Employee.
-    /// @param state The State of this Employee.
-    void state(const Employee::State& state);
+    /// @param state_ The State of this Employee.
+    void state(const Employee::State& state_);
 
     /// @brief Retrieve the type of this Employee.
     /// @retval the type of this Employee.
-    virtual Employee::Type type() const = 0;
+    virtual const Type& type() const = 0;
 
   private:
 
@@ -134,7 +134,7 @@ namespace callcentre
     Experience m_experience;
 
     /// @brief The state of this Employee.
-    Employee::State m_state;
+    State m_state;
 
   }; // ! class Employee
 
