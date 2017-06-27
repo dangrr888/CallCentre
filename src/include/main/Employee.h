@@ -77,7 +77,7 @@ namespace callcentre
 
     /// @brief Move assignment operator.
     /// @note Default implementation.
-    Employee&& operator=(Employee&&) = default;
+    Employee& operator=(Employee&&) = default;
 
     /// @brief Destructor.
     /// @note Default implementation.
@@ -103,7 +103,7 @@ namespace callcentre
 
     /// @brief Return the state of this Employee.
     /// @retval The state of this Employee.
-    Employee::State state() const = 0;
+    virtual Employee::State state() const = 0;
 
     /// @brief Set the state of this Employee.
     /// @param state The State of this Employee.
