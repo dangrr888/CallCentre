@@ -10,7 +10,7 @@ namespace callcentre
 
   /// @brief A class representing a call made to
   ///  a call centre.
-  class final Call
+  class Call final
   {
   public:
 

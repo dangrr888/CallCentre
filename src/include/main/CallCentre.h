@@ -1,19 +1,29 @@
 #ifndef GUARD_SRC_INCLUDE_MAIN_CALLCENTRE_H_
 #define GUARD_SRC_INCLUDE_MAIN_CALLCENTRE_H_
 
-#include <deque>
-
 #include "Employee.h"
 #include "Call.h"
+
+#include <deque>
 
 namespace callcentre
 {
 
   /// @brief A class representing a CallCentre.
-  class final CallCentre
+  class CallCentre final
   {
 
   public:
+
+    // public enumeration classes.
+
+    /// @brief An internal enum class representing the
+    ///  state of a CallCenre.
+    enum class Status
+    {
+      OPEN,
+      CLOSED
+    };
 
     // public structors.
 
@@ -51,7 +61,6 @@ namespace callcentre
     /// @note Deleted.
     ~CallCentre() = default;
 
-
     // Public etters.
 
     /// @brief Submit a call to the CallCentre.
@@ -81,26 +90,20 @@ namespace callcentre
     ///   Employee's owned by this CallCentre.
     std::deque<callcentre::Employee>::iterator end();
 
-    /// @brief Open this CallCentre (i.e., permit it to recieve calls).
-    void open();
+    /// @brief Return the status of this CallCentre.
+    /// @retval The status of this CallCentre.
+    const Status& status() const;
 
-    /// @brief Open this CallCentre (i.e., prevent it from receiving further calls).
-    void close();
+    /// @brief Set the status of this CallCentre.
+    /// @param status_ The status to be set.
+    void status(const Status& status_);
 
   private:
 
     // private data members.
 
-    /// @brief An internal enum class representing the
-    ///  state of a CallCenre.
-    enum class Status
-    {
-      OPEN,
-        CLOSED
-        };
-
     /// @brief The list of Employee owned by this CallCentre.
-    std::deque<callcentre:Employee> m_employees;
+    std::deque<callcentre::Employee> m_employees;
 
     /// @brief The status of this CallCentre
     Status m_status;
@@ -110,6 +113,24 @@ namespace callcentre
     std::deque<callcentre::Call> m_calls;
 
   }; // ! class CallCentre
+
+
+  // Definitions of templatized functions.
+
+  template<typename EmployeeIter>
+  CallCentre::CallCentre( EmployeeIter beg
+                        , EmployeeIter end
+                        )
+    : m_employees()
+    , m_status(Status::OPEN)
+    , m_calls()
+  {
+    for(EmployeeIter iter = beg; iter != end; ++iter)
+    {
+      // take ownership of the Employee populating this CallCentre.
+      add_employee(std::move(*iter));
+    }
+  }
 
 } // ! namespace callcentre
 

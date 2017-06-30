@@ -21,7 +21,7 @@ namespace callcentre
     /* structors */
     CallHandler(CallCentre& callcentre);
     CallHandler(const CallHandler&) = default;
-    CallHandler(const CallHandler&&) = default;
+    CallHandler(CallHandler&&) = default;
     CallHandler& operator=(const CallHandler&) = default;
     CallHandler& operator=(CallHandler&&) = default;
     ~CallHandler() = default;
@@ -29,6 +29,8 @@ namespace callcentre
     /* etters */
     void receive_call(Call&& call);
     void process_call();
+
+    std::list<Call>::size_type num_calls() const;
 
   private:
 
